@@ -36,7 +36,7 @@ before_install:
   - export CXXFLAGS="-fPIC -std=c++11"
 before_script:
   - mkdir src/private
-  - cp /opt/qt57/include/QtCore/5.7.1/QtCore/private/qmetaobjectbuilder_p.h PythonQt/src/private
+  - cp /opt/qt57/include/QtCore/5.7.1/QtCore/private/qmetaobjectbuilder_p.h src/private
   - mkdir PythonQt-build
   - cd PythonQt-build
   - cmake -G Ninja -DCMAKE_BUILD_TYPE=RELEASE -DPythonQt_Python3=FALSE -DPythonQt_Qt5=TRUE ..
