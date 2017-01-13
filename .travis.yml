@@ -38,31 +38,33 @@ before_install:
   - source /opt/qt57/bin/qt57-env.sh
   - export CXXFLAGS="-fPIC"
 before_script:
-#  - wget https://downloads.sourceforge.net/project/quazip/quazip/0.7.2/quazip-0.7.2.tar.gz
-#  - tar -xzf quazip-0.7.2.tar.gz
-#  - mkdir quazip-build
-#  - cd quazip-build
-#  - cmake -G Ninja -DCMAKE_BUILD_TYPE=RELEASE "../quazip-0.7.2"
-#  - sudo ninja install -j1
-#  - cd ..
+  - cd ..
+  - mkdir knossos-deb
+  - wget https://downloads.sourceforge.net/project/quazip/quazip/0.7.2/quazip-0.7.2.tar.gz
+  - tar -xzf quazip-0.7.2.tar.gz
+  - mkdir quazip-build
+  - cd quazip-build
+  - cmake -G Ninja -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=~/knossos-deb "../quazip-0.7.2"
+  - sudo ninja install -j1
+  - cd ..
 #  - git clone https://github.com/knossos-project/PythonQt.git
+  - cd PythonQt
   - mkdir src/private
   - cp /opt/qt57/include/QtCore/5.7.1/QtCore/private/qmetaobjectbuilder_p.h src/private
   - cd ..
   - mkdir PythonQt-build
   - cd PythonQt-build
-  - mkdir _install
-  - cmake -G Ninja -DCMAKE_BUILD_TYPE=RELEASE -DPythonQt_Python3=FALSE -DPythonQt_Qt5=TRUE -DCMAKE_INSTALL_PREFIX=_install ../PythonQt
+  - cmake -G Ninja -DCMAKE_BUILD_TYPE=RELEASE -DPythonQt_Python3=FALSE -DPythonQt_Qt5=TRUE -DCMAKE_INSTALL_PREFIX=~/knossos-deb ../PythonQt
   - cd ..
 
 script:
 - cd PythonQt-build
 - ninja install -j1
-- tar cvfz pythonqt.tar.gz _install
 - cd ..
+- tar cvfz knossos-deb.tar.gz knossos-deb
 
 deploy:
   provider: releases
   api_key:
     secure: gB6Et8DoUNieXsfx+vOfdQbrAOXWXGNDTnvlByz8Nfiop8nZzpu71LC1YZ0/xichRGVehFFkOGcAP4sdzVk22oGXeFMcVzlvjdnm00O3atYgncCeV9X3zFy+gCxipKVb79z0+Gg45yyouF9nPMQtCctffqVvNMSkjoT6bJO/Q0JtFWq0zfX6CuIhMSjZfUVQB1Voe268I6kNXHl/KJKjLXvmEfKK65BbjKLXpU42XBWQ6Z9RnH5bV2wLCIn9kX6OC9lhViAZ4WYnkStvIuPJF/deCM1yHMHyYt5QI2WgonxldYFyQM9YzIeKY3NOijkzN1sN4dbCxUcdRmUD6pN2kjMRfcBwVoge+qFYpyXUrqdihYoM0igkvKovwanWt1fd4fz1JhOYqmXSgJ/HPu2bVLq39cierwcM2RjuhhuOu2KQqzOOVAFg/YafyD4xzUhyGptp2aGNW0fK70Geaf0SoyOR6zCMm4OXE+Q5xkdV5Y0DCZFbx8nwl85Tg7RbZYaoDamSx9APkxUYigIeW4l2CmkitmBNpviJsIU8fmEdsTFk4U/wikfO+X12Zz06dvJ6Yju7DDsLqtqnNalAI3FtnXKCf/oREd4gYl4LjY/NXbzeR8ou2dCK/1yj5g9nvyCj7mM4Vs5tKSXgWe+ewwPlSxTwhK0t8SNXX1aiAyZ6Ek0=
-  file: PythonQt-build/pythonqt.tar.gz
+  file: knossos-deb.tar.gz
