@@ -1,48 +1,52 @@
 language: cpp
-
 dist:
-  - trusty #ubuntu 14.04
-
+- trusty
 compiler:
-  - clang
-  - gcc
-
+- clang
+- gcc
 git:
   submodules: false
-
 before_install:
-  - sudo add-apt-repository -y ppa:kojoley/boost # boost 1.58
-  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test # gcc6
-  - wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add - # add gpg.key for upcoming llvm repo
-  - sudo apt-add-repository -y "deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.8 main" # clang 3.8
-  - sudo add-apt-repository -y ppa:beineri/opt-qt571-trusty # Qt 5.7.1
-  - sudo apt-get update -qq
-  - sudo apt-get -qq install cmake
-  - sudo apt-get -qq install freeglut3-dev
-  - sudo apt-get -qq install gcc-6 g++-6
-  - sudo apt-get -qq install clang-3.8
-  - sudo apt-get -qq install libboost1.58-dev
-  - sudo apt-get -qq install libcurl4-openssl-dev
-  - sudo apt-get -qq install qt57base qt573d qtquick1-5-dev qtdeclarative5-dev qt57svg qt57tools qt57multimedia qtbase5-private-dev
-  - sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.8 100
-  - sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.8 100
-  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 100
-  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 100
-  - sudo update-alternatives --config clang
-  - sudo update-alternatives --config clang++
-  - sudo update-alternatives --config gcc
-  - sudo update-alternatives --config g++
-  - source /opt/qt57/bin/qt57-env.sh
-  - export CXXFLAGS="-fPIC -std=c++11"
+- sudo add-apt-repository -y ppa:kojoley/boost
+- sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+- wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+- sudo apt-add-repository -y "deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.8
+  main"
+- sudo add-apt-repository -y ppa:beineri/opt-qt571-trusty
+- sudo apt-get update -qq
+- sudo apt-get -qq install cmake
+- sudo apt-get -qq install freeglut3-dev
+- sudo apt-get -qq install gcc-6 g++-6
+- sudo apt-get -qq install clang-3.8
+- sudo apt-get -qq install libboost1.58-dev
+- sudo apt-get -qq install libcurl4-openssl-dev
+- sudo apt-get -qq install qt57base qt573d qtquick1-5-dev qtdeclarative5-dev qt57svg
+  qt57tools qt57multimedia qtbase5-private-dev
+- sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.8 100
+- sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.8
+  100
+- sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 100
+- sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 100
+- sudo update-alternatives --config clang
+- sudo update-alternatives --config clang++
+- sudo update-alternatives --config gcc
+- sudo update-alternatives --config g++
+- source /opt/qt57/bin/qt57-env.sh
+- export CXXFLAGS="-fPIC -std=c++11"
 before_script:
-  - mkdir src/private
-  - cp /opt/qt57/include/QtCore/5.7.1/QtCore/private/qmetaobjectbuilder_p.h PythonQt/src/private
-  - mkdir PythonQt-build
-  - cd PythonQt-build
-  - cmake -G Ninja -DCMAKE_BUILD_TYPE=RELEASE -DPythonQt_Python3=FALSE -DPythonQt_Qt5=TRUE ..
-  - cd ..
-
+- mkdir src/private
+- cp /opt/qt57/include/QtCore/5.7.1/QtCore/private/qmetaobjectbuilder_p.h PythonQt/src/private
+- mkdir PythonQt-build
+- cd PythonQt-build
+- cmake -G Ninja -DCMAKE_BUILD_TYPE=RELEASE -DPythonQt_Python3=FALSE -DPythonQt_Qt5=TRUE
+  ..
+- cd ..
 script:
-  - cd PythonQt-build
-  - ninja -j1
-  - cd ..
+- cd PythonQt-build
+- ninja -j1
+- cd ..
+deploy:
+  provider: releases
+  api_key:
+    secure: gB6Et8DoUNieXsfx+vOfdQbrAOXWXGNDTnvlByz8Nfiop8nZzpu71LC1YZ0/xichRGVehFFkOGcAP4sdzVk22oGXeFMcVzlvjdnm00O3atYgncCeV9X3zFy+gCxipKVb79z0+Gg45yyouF9nPMQtCctffqVvNMSkjoT6bJO/Q0JtFWq0zfX6CuIhMSjZfUVQB1Voe268I6kNXHl/KJKjLXvmEfKK65BbjKLXpU42XBWQ6Z9RnH5bV2wLCIn9kX6OC9lhViAZ4WYnkStvIuPJF/deCM1yHMHyYt5QI2WgonxldYFyQM9YzIeKY3NOijkzN1sN4dbCxUcdRmUD6pN2kjMRfcBwVoge+qFYpyXUrqdihYoM0igkvKovwanWt1fd4fz1JhOYqmXSgJ/HPu2bVLq39cierwcM2RjuhhuOu2KQqzOOVAFg/YafyD4xzUhyGptp2aGNW0fK70Geaf0SoyOR6zCMm4OXE+Q5xkdV5Y0DCZFbx8nwl85Tg7RbZYaoDamSx9APkxUYigIeW4l2CmkitmBNpviJsIU8fmEdsTFk4U/wikfO+X12Zz06dvJ6Yju7DDsLqtqnNalAI3FtnXKCf/oREd4gYl4LjY/NXbzeR8ou2dCK/1yj5g9nvyCj7mM4Vs5tKSXgWe+ewwPlSxTwhK0t8SNXX1aiAyZ6Ek0=
+  file: PythonQt-build/pythonqt.tar.gz
