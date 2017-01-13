@@ -39,12 +39,13 @@ before_install:
   - export CXXFLAGS="-fPIC"
 before_script:
   - cd ..
-  - mkdir knossos-deb
+  - mkdir knossos-deb-snappy
+  - mkdir knossos-deb-pythonqt
   - wget https://downloads.sourceforge.net/project/quazip/quazip/0.7.2/quazip-0.7.2.tar.gz
   - tar -xzf quazip-0.7.2.tar.gz
   - mkdir quazip-build
   - cd quazip-build
-  - cmake -G Ninja -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=~/knossos-deb "../quazip-0.7.2"
+  - cmake -G Ninja -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=~/knossos-deb-snappy "../quazip-0.7.2"
   - sudo ninja install -j1
   - cd ..
 #  - git clone https://github.com/knossos-project/PythonQt.git
@@ -54,14 +55,14 @@ before_script:
   - cd ..
   - mkdir PythonQt-build
   - cd PythonQt-build
-  - cmake -G Ninja -DCMAKE_BUILD_TYPE=RELEASE -DPythonQt_Python3=FALSE -DPythonQt_Qt5=TRUE -DCMAKE_INSTALL_PREFIX=~/knossos-deb ../PythonQt
+  - cmake -G Ninja -DCMAKE_BUILD_TYPE=RELEASE -DPythonQt_Python3=FALSE -DPythonQt_Qt5=TRUE -DCMAKE_INSTALL_PREFIX=~/knossos-deb-pythonqt ../PythonQt
   - cd ..
 
 script:
 - cd PythonQt-build
 - ninja install -j1
 - cd ..
-- tar cvfz knossos-deb.tar.gz knossos-deb
+- tar cvfz knossos-deb.tar.gz knossos-deb-snappy knossos-deb-pythonqt
 
 deploy:
   provider: releases
