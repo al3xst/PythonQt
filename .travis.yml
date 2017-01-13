@@ -57,7 +57,7 @@ before_script:
 script:
 - cd PythonQt-build
 - ninja install -j1
-- tar xvfz pythonqt.tar.gz _install
+- tar cvfz pythonqt.tar.gz _install
 - cd ..
 
 deploy:
