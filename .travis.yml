@@ -61,11 +61,11 @@ before_script:
 script:
 - cd PythonQt-build
 - ninja install -j1
-- cd ..
+- cd ~
 - tar cvfz knossos-deb.tar.gz knossos-deb-snappy knossos-deb-pythonqt
 
 deploy:
   provider: releases
   api_key:
     secure: gB6Et8DoUNieXsfx+vOfdQbrAOXWXGNDTnvlByz8Nfiop8nZzpu71LC1YZ0/xichRGVehFFkOGcAP4sdzVk22oGXeFMcVzlvjdnm00O3atYgncCeV9X3zFy+gCxipKVb79z0+Gg45yyouF9nPMQtCctffqVvNMSkjoT6bJO/Q0JtFWq0zfX6CuIhMSjZfUVQB1Voe268I6kNXHl/KJKjLXvmEfKK65BbjKLXpU42XBWQ6Z9RnH5bV2wLCIn9kX6OC9lhViAZ4WYnkStvIuPJF/deCM1yHMHyYt5QI2WgonxldYFyQM9YzIeKY3NOijkzN1sN4dbCxUcdRmUD6pN2kjMRfcBwVoge+qFYpyXUrqdihYoM0igkvKovwanWt1fd4fz1JhOYqmXSgJ/HPu2bVLq39cierwcM2RjuhhuOu2KQqzOOVAFg/YafyD4xzUhyGptp2aGNW0fK70Geaf0SoyOR6zCMm4OXE+Q5xkdV5Y0DCZFbx8nwl85Tg7RbZYaoDamSx9APkxUYigIeW4l2CmkitmBNpviJsIU8fmEdsTFk4U/wikfO+X12Zz06dvJ6Yju7DDsLqtqnNalAI3FtnXKCf/oREd4gYl4LjY/NXbzeR8ou2dCK/1yj5g9nvyCj7mM4Vs5tKSXgWe+ewwPlSxTwhK0t8SNXX1aiAyZ6Ek0=
-  file: knossos-deb.tar.gz
+  file: ~/knossos-deb.tar.gz
