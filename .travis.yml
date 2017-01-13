@@ -38,13 +38,13 @@ before_install:
   - source /opt/qt57/bin/qt57-env.sh
   - export CXXFLAGS="-fPIC"
 before_script:
-  - wget https://downloads.sourceforge.net/project/quazip/quazip/0.7.2/quazip-0.7.2.tar.gz
-  - tar -xzf quazip-0.7.2.tar.gz
-  - mkdir quazip-build
-  - cd quazip-build
-  - cmake -G Ninja -DCMAKE_BUILD_TYPE=RELEASE "../quazip-0.7.2"
-  - sudo ninja install -j1
-  - cd ..
+#  - wget https://downloads.sourceforge.net/project/quazip/quazip/0.7.2/quazip-0.7.2.tar.gz
+#  - tar -xzf quazip-0.7.2.tar.gz
+#  - mkdir quazip-build
+#  - cd quazip-build
+#  - cmake -G Ninja -DCMAKE_BUILD_TYPE=RELEASE "../quazip-0.7.2"
+#  - sudo ninja install -j1
+#  - cd ..
 #  - git clone https://github.com/knossos-project/PythonQt.git
   - mkdir src/private
   - cp /opt/qt57/include/QtCore/5.7.1/QtCore/private/qmetaobjectbuilder_p.h src/private
