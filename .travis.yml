@@ -57,7 +57,7 @@ before_script:
   - cd PythonQt-build
   - mkdir knossos-deb-pythonqt
   - cmake -G Ninja -DCMAKE_BUILD_TYPE=RELEASE -DPythonQt_Python3=FALSE -DPythonQt_Qt5=TRUE -DCMAKE_INSTALL_PREFIX=knossos-deb-pythonqt ../PythonQt
-  - cd ..
+  - cd ../PythonQt
 
 script:
 - cd PythonQt-build
