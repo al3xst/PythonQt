@@ -62,6 +62,9 @@ endif(PythonQt_Qt5)
 # associated with the Qt version being used.
 
 set(generated_cpp_suffix "_${QT_VERSION_MAJOR}${QT_VERSION_MINOR}")
+if("${generated_cpp_suffix}" STREQUAL "_58")
+	set(generated_cpp_suffix "_56") # Also use 5.6 wrappers for 5.8
+endif()
 if("${generated_cpp_suffix}" STREQUAL "_57")
 	set(generated_cpp_suffix "_56") # Also use 5.6 wrappers for 5.7
 endif()
@@ -76,7 +79,7 @@ if("${generated_cpp_suffix}" STREQUAL "_46")
 endif()
 
 set(WEBKIT_AVAILABLE ON)
-if("${generated_cpp_suffix}" STREQUAL "_56" OR "${generated_cpp_suffix}" STREQUAL "_57" OR QT_STATIC)
+if("${QT_VERSION_MAJOR}.${QT_VERSION_MINOR}" VERSION_GREATER "5.6" OR QT_STATIC)
 	set(WEBKIT_AVAILABLE OFF)
 endif()
 include(CMakeDependentOption)
@@ -94,6 +97,7 @@ option(BUILD_SHARED_LIBS "build shared instead of static library")
 option(PythonQtAll "Build complete Qt wrapper library" ON)
 option(PythonQt_Python3 "Use Python 3.x (3.3+)" OFF)
 option(PythonQt_Python "Use specific Python Version" OFF)
+option(PythonQt_DynamicMetaObject "Add functionality which requires Qt source code and will depend exactly on the specific Qt version it was built with" OFF)
 if(PythonQt_Python)
 	find_package(PythonLibs ${PythonQt_Python} REQUIRED EXACT)
 elseif(PythonQt_Python3)
