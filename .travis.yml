@@ -48,7 +48,7 @@ before_script:
 #  - git clone https://github.com/knossos-project/PythonQt.git
 #  - mkdir src/private
 #  - cp /opt/qt57/include/QtCore/5.7.1/QtCore/private/qmetaobjectbuilder_p.h src/private
-#  - cd ..
+  - cd ..
   - mkdir PythonQt-build
   - cd PythonQt-build
   - mkdir PythonQt-install
